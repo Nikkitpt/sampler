@@ -6,6 +6,8 @@ let loopLength = 500;
 let dragging = false;
 let rotationSpeed = 0;
 let baseBoxSize = 100; 
+let textGraphics; // Graphics buffer for 2D text
+let instructions = " Click and drag box left or right to activate loop.";
 
 function preload() {
     sound1 = loadSound('rhodes.wav'); 
@@ -21,11 +23,22 @@ function setup() {
     sound1.play(); 
 
     sound2.setLoop(true);
+
+    // Create a 2D graphics buffer for the text
+    textGraphics = createGraphics(windowWidth, windowHeight);
 }
 
 function draw() {
     background(0);
+    
+    // Draw instructions on the 2D graphics buffer
+    textGraphics.clear();
+    textGraphics.fill(255);  // White text
+    textGraphics.textSize(16);
+    textGraphics.textAlign(CENTER, TOP); // Center horizontally, align to the top
+    textGraphics.text(instructions, textGraphics.width / 2, 20); // Set text at the top center
 
+    // Render the 3D content
     directionalLight(255, 255, 255, 0.5, 1, -0.5);
     ambientLight(50);
 
@@ -40,6 +53,9 @@ function draw() {
     rotateY(frameCount * rotationSpeed);
     box(boxSize); 
     pop();
+
+    // Overlay the 2D graphics buffer on top of the 3D canvas
+    image(textGraphics, -width / 2, -height / 2);
 }
 
 function mousePressed() {
@@ -92,4 +108,5 @@ function adjustLoopParameters() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    textGraphics.resizeCanvas(windowWidth, windowHeight); // Resize the text buffer
 }
