@@ -7,7 +7,7 @@ let dragging = false;
 let rotationSpeed = 0;
 let baseBoxSize = 100; 
 let textGraphics; // Graphics buffer for 2D text
-let instructions = " Click and drag box left or right to activate loop.";
+let instructions = "Drag and hold the box to the left or right; then let go.";
 
 function preload() {
     sound1 = loadSound('rhodes.wav'); 
